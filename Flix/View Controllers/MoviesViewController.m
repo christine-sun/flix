@@ -7,6 +7,7 @@
 
 #import "MoviesViewController.h"
 #import "MovieCell.h"
+#import "UIImageView+AFNetworking.h"
 
 @interface MoviesViewController () <UITableViewDataSource, UITableViewDelegate>
 
@@ -63,10 +64,18 @@
     MovieCell *cell = [tableView dequeueReusableCellWithIdentifier: @"MovieCell"];
     
     NSDictionary *movie = self.movies[indexPath.row];
-    cell.titleLabel.text = movie[@"title"];
-    cell.synopsisLabel.text =
-        movie[@"overview"];
     
+    // Find the URL for the image of this movie poster
+    NSString *baseURLString = @"https://image.tmdb.org/t/p/w500";
+    NSString *posterURLString = movie[@"poster_path"];
+    NSString *fullPosterURLString = [baseURLString stringByAppendingString:posterURLString];
+    NSURL *posterURL = [NSURL URLWithString:fullPosterURLString];
+    
+    // Fill in information for each movie in a movie cell
+    cell.titleLabel.text = movie[@"title"];
+    cell.synopsisLabel.text = movie[@"overview"];
+    cell.posterView.image = nil; // clear out prev image to start downloading new one
+    [cell.posterView setImageWithURL:posterURL];
     
     return cell;
 }
