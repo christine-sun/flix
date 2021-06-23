@@ -6,6 +6,7 @@
 //
 
 #import "MoviesViewController.h"
+#import "MovieCell.h"
 
 @interface MoviesViewController () <UITableViewDataSource, UITableViewDelegate>
 
@@ -58,11 +59,14 @@
 
 // Create and configure a cell to have movie title based on its indexPath
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [[UITableViewCell alloc] init];
+    
+    MovieCell *cell = [tableView dequeueReusableCellWithIdentifier: @"MovieCell"];
     
     NSDictionary *movie = self.movies[indexPath.row];
+    cell.titleLabel.text = movie[@"title"];
+    cell.synopsisLabel.text =
+        movie[@"overview"];
     
-    cell.textLabel.text = movie[@"title"];
     
     return cell;
 }
