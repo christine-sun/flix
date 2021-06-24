@@ -14,7 +14,7 @@ The following **required** functionality is complete:
 - [x] User sees a loading state while waiting for the movies API.
 - [x] User can pull to refresh the movie list.
 - [x] User sees an error message when there's a networking error.
-- [ ] User can tap a tab bar button to view a grid layout of Movie Posters using a CollectionView.
+- [x] User can tap a tab bar button to view a grid layout of Movie Posters using a CollectionView.
 
 The following **optional** features are implemented:
 
@@ -27,7 +27,7 @@ The following **optional** features are implemented:
 - [ ] Customize the navigation bar.
 - [ ] Customize the UI.
 - [ ] User can view the app on various device sizes and orientations.
-- [ ] Run your app on a real device.
+- [x] Run your app on a real device.
 
 The following **additional** features are implemented:
 
@@ -50,15 +50,17 @@ GIF created with [Kap](https://getkap.co/).
 
 Describe any challenges encountered while building the app.
 
+I encountered an issue with the image sizing in the Collection View. To resolve this, I had to manually adjust the values of the width and height. Upon conferring with the TAs, it seems that auto-layout will make this process much more smooth in the future.
+
 ## Credits
 
-List an 3rd party libraries, icons, graphics, or other assets you used in your app.
+List any 3rd party libraries, icons, graphics, or other assets you used in your app.
 
 - [AFNetworking](https://github.com/AFNetworking/AFNetworking) - networking task library
 
 ## License
 
-    Copyright [yyyy] [name of copyright owner]
+    Copyright 2021 Christine Sun 
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
