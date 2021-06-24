@@ -15,6 +15,8 @@
 @property (nonatomic, strong) NSArray *movies;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic, strong) UIRefreshControl *refreshControl;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
+
 
 @end
 
@@ -35,6 +37,9 @@
 }
 
 - (void)fetchMovies {
+    
+    // Start the activity indicator
+    [self.activityIndicator startAnimating];
     
     // Fetch the movies
     NSURL *url = [NSURL URLWithString:@"https://api.themoviedb.org/3/movie/now_playing?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed"];
@@ -60,12 +65,16 @@
             
             // Reload table view data
             [self.tableView reloadData];
+            
+            // Stop the activity indicator
+            [self.activityIndicator stopAnimating];
                
         }
         
         [self.refreshControl endRefreshing];
     }];
     [task resume];
+    
 }
 
 // How many rows you have

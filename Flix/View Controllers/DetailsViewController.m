@@ -7,6 +7,7 @@
 
 #import "DetailsViewController.h"
 #import "UIImageView+AFNetworking.h"
+#import <QuartzCore/QuartzCore.h>
 
 @interface DetailsViewController ()
 
@@ -22,7 +23,16 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    
+    // Style the poster view
+    [self.posterView.layer setBorderColor: [[UIColor whiteColor] CGColor]];
+    [self.posterView.layer setBorderWidth:3];
+    // come back
+    [self.posterView.layer setShadowColor: [[UIColor blackColor] CGColor]];
+    [self.posterView.layer setShadowOffset: CGSizeMake(5,5)];
+    [self.posterView.layer setShadowRadius:25];
+    [self.posterView.layer setShadowOpacity:0.9];
+    
     
     // Set image of this movie
     NSString *baseURLString = @"https://image.tmdb.org/t/p/w500";
