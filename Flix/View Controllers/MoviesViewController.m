@@ -50,6 +50,22 @@
         // Network request comes back
         if (error != nil) {
             NSLog(@"%@", [error localizedDescription]);
+            
+            // Handle Network error
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Cannot Get Movies"
+                message:@"The internet connection appears to be offline."
+                preferredStyle:(UIAlertControllerStyleAlert)];
+            
+            // Create a Try Again action that tries fetching movies again
+            UIAlertAction *tryAgainAction = [UIAlertAction actionWithTitle:@"Try Again"
+                style:UIAlertActionStyleDefault
+                handler:^(UIAlertAction * _Nonnull action) {
+                    [self fetchMovies];
+            }];
+            
+            [alert addAction:tryAgainAction];
+            [self presentViewController:alert animated:YES completion:nil];
+            
         }
         else {
             // Get the array of movies
@@ -85,7 +101,7 @@
 // Create and configure a cell to have movie title based on its indexPath
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    MovieCell *cell = [tableView dequeueReusableCellWithIdentifier: @"MovieCell"];
+    MovieCell *cell = [tableView dequeueReusableCellWithIdentifier: @"MovieCell" forIndexPath:indexPath];
     
     NSDictionary *movie = self.movies[indexPath.row];
     
@@ -98,7 +114,7 @@
     // Fill in information for each movie in a movie cell
     cell.titleLabel.text = movie[@"title"];
     cell.synopsisLabel.text = movie[@"overview"];
-    cell.posterView.image = nil; // clear out prev image to start downloading new one
+    cell.posterView.image = nil; // clear out prev image
     [cell.posterView setImageWithURL:posterURL];
     
     return cell;
