@@ -1,46 +1,35 @@
 //
-//  MoviesViewController.m
+//  MoviesGridViewController.m
 //  Flix
 //
-//  Created by Christine Sun on 6/23/21.
+//  Created by Christine Sun on 6/24/21.
 //
 
-#import "MoviesViewController.h"
-#import "MovieCell.h"
+#import "MoviesGridViewController.h"
+#import "MovieCollectionCell.h"
 #import "UIImageView+AFNetworking.h"
-#import "DetailsViewController.h"
 
-@interface MoviesViewController () <UITableViewDataSource, UITableViewDelegate>
+@interface MoviesGridViewController () <UICollectionViewDelegate, UICollectionViewDataSource>
 
 @property (nonatomic, strong) NSArray *movies;
-@property (weak, nonatomic) IBOutlet UITableView *tableView;
-@property (nonatomic, strong) UIRefreshControl *refreshControl;
-@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
-
+@property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 
 @end
 
-@implementation MoviesViewController
+@implementation MoviesGridViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    // Do any additional setup after loading the view.
     
-    // Let viewController be the data source and delegate
-    self.tableView.dataSource = self;
-    self.tableView.delegate = self;
- 
+    self.collectionView.dataSource = self;
+    self.collectionView.delegate = self;
+    
     [self fetchMovies];
-    
-    self.refreshControl = [[UIRefreshControl alloc] init];
-    [self.refreshControl addTarget:self action:@selector(fetchMovies) forControlEvents:UIControlEventValueChanged];
-    [self.tableView insertSubview:self.refreshControl atIndex:0];
 }
 
 - (void)fetchMovies {
-    
-    // Start the activity indicator
-    [self.activityIndicator startAnimating];
-    
+
     // Fetch the movies
     NSURL *url = [NSURL URLWithString:@"https://api.themoviedb.org/3/movie/now_playing?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed"];
     NSURLRequest *request = [NSURLRequest requestWithURL:url cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:10.0];
@@ -73,32 +62,18 @@
                
             // Store movies
             self.movies = dataDictionary[@"results"];
-            
-            // Reload table view data
-            [self.tableView reloadData];
-            
-            // Stop the activity indicator
-            [self.activityIndicator stopAnimating];
-               
+            [self.collectionView reloadData];
         }
-        
-        [self.refreshControl endRefreshing];
     }];
     [task resume];
     
 }
 
-// How many rows you have
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.movies.count;
-}
-
-// Create and configure a cell to have movie title based on its indexPath
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (nonnull __kindof UICollectionViewCell *)collectionView:(nonnull UICollectionView *)collectionView cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
     
-    MovieCell *cell = [tableView dequeueReusableCellWithIdentifier: @"MovieCell" forIndexPath:indexPath];
+    MovieCollectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"MovieCollectionCell" forIndexPath:indexPath];
     
-    NSDictionary *movie = self.movies[indexPath.row];
+    NSDictionary *movie = self.movies[indexPath.item];
     
     // Find the URL for the image of this movie poster
     NSString *baseURLString = @"https://image.tmdb.org/t/p/w500";
@@ -107,32 +82,24 @@
     NSURL *posterURL = [NSURL URLWithString:fullPosterURLString];
     
     // Fill in information for each movie in a movie cell
-    cell.titleLabel.text = movie[@"title"];
-    cell.synopsisLabel.text = movie[@"overview"];
-    cell.posterView.image = nil; // clear out prev image
+    cell.posterView.image = nil;
     [cell.posterView setImageWithURL:posterURL];
     
     return cell;
 }
 
+- (NSInteger)collectionView:(nonnull UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+        return self.movies.count;
+}
+
+/*
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
-    
-    // hey I'm about to leave my view controller and go to another. Is there
-    // anything that you want to give to the destination view controller?
-    
-    // sender is tableViewCell that got tapped on
-    UITableViewCell *tappedCell = sender;
-    NSIndexPath *indexPath = [self.tableView indexPathForCell:tappedCell];
-    NSDictionary *movie = self.movies[indexPath.row];
-    
-    // pass the movie that was tapped
-    DetailsViewController *detailsViewController = [segue destinationViewController];
-    detailsViewController.movie = movie;
 }
+*/
 
 @end
