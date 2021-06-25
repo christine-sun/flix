@@ -163,7 +163,7 @@
         <scene sceneID="ZGj-8Q-PYW">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="LYB-cx-4Ho" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="List View" id="Ftc-Oi-Qyp"/>
+                    <tabBarItem key="tabBarItem" title="List View" image="list.dash" catalog="system" id="Ftc-Oi-Qyp"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="r5r-5R-iTS">
                         <rect key="frame" x="0.0" y="44" width="390" height="44"/>
@@ -182,7 +182,7 @@
         <scene sceneID="NDp-q1-Iab">
             <objects>
                 <navigationController id="xbj-8C-Hxn" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Poster View" id="Qnb-zc-TeY"/>
+                    <tabBarItem key="tabBarItem" title="Poster View" image="square.grid.2x2.fill" catalog="system" id="Qnb-zc-TeY"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="adb-hJ-zQO">
                         <rect key="frame" x="0.0" y="44" width="390" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -195,7 +195,7 @@
             </objects>
             <point key="canvasLocation" x="1829" y="124"/>
         </scene>
-        <!--Movies Grid View Controller-->
+        <!--Movies-->
         <scene sceneID="ud1-Ua-M3u">
             <objects>
                 <viewController id="r0G-HJ-hl2" customClass="MoviesGridViewController" sceneMemberID="viewController">
@@ -238,7 +238,7 @@
                         <viewLayoutGuide key="safeArea" id="YIT-jO-w4q"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
-                    <navigationItem key="navigationItem" id="eFz-LC-Djd"/>
+                    <navigationItem key="navigationItem" title="Movies" id="eFz-LC-Djd"/>
                     <connections>
                         <outlet property="collectionView" destination="bbN-bq-Jen" id="Xem-Ar-MGe"/>
                     </connections>
@@ -249,6 +249,8 @@
         </scene>
     </scenes>
     <resources>
+        <image name="list.dash" catalog="system" width="128" height="85"/>
+        <image name="square.grid.2x2.fill" catalog="system" width="128" height="114"/>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
