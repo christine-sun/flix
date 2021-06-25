@@ -122,9 +122,6 @@
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
     
-    // hey I'm about to leave my view controller and go to another. Is there
-    // anything that you want to give to the destination view controller?
-    
     // sender is tableViewCell that got tapped on
     UITableViewCell *tappedCell = sender;
     NSIndexPath *indexPath = [self.tableView indexPathForCell:tappedCell];
