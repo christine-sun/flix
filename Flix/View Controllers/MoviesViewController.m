@@ -10,13 +10,14 @@
 #import "UIImageView+AFNetworking.h"
 #import "DetailsViewController.h"
 
-@interface MoviesViewController () <UITableViewDataSource, UITableViewDelegate>
+@interface MoviesViewController () <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate>
 
 @property (nonatomic, strong) NSArray *movies;
+@property (strong, nonatomic) NSArray *filteredMovies;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic, strong) UIRefreshControl *refreshControl;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
-
+@property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 
 @end
 
@@ -25,9 +26,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    // Let viewController be the data source and delegate
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
+    self.searchBar.delegate = self;
  
     [self fetchMovies];
     
@@ -73,6 +74,7 @@
                
             // Store movies
             self.movies = dataDictionary[@"results"];
+            self.filteredMovies = self.movies;
             
             // Reload table view data
             [self.tableView reloadData];
@@ -90,7 +92,7 @@
 
 // How many rows you have
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.movies.count;
+    return self.filteredMovies.count;
 }
 
 // Create and configure a cell to have movie title based on its indexPath
@@ -98,7 +100,7 @@
     
     MovieCell *cell = [tableView dequeueReusableCellWithIdentifier: @"MovieCell" forIndexPath:indexPath];
     
-    NSDictionary *movie = self.movies[indexPath.row];
+    NSDictionary *movie = self.filteredMovies[indexPath.row];
     
     // Find the URL for the image of this movie poster
     NSString *baseURLString = @"https://image.tmdb.org/t/p/w500";
@@ -113,6 +115,26 @@
     [cell.posterView setImageWithURL:posterURL];
     
     return cell;
+}
+
+// Update what TableView displays based on text in searchBar
+- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
+   
+   if (searchText.length != 0) {
+       
+       NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(title CONTAINS[cd] %@)", searchText];
+       
+       self.filteredMovies = [self.movies filteredArrayUsingPredicate:predicate];
+       
+       NSLog(@"%@", self.filteredMovies);
+       
+   }
+   else {
+       self.filteredMovies = self.movies;
+   }
+   
+   [self.tableView reloadData];
+
 }
 
 #pragma mark - Navigation
