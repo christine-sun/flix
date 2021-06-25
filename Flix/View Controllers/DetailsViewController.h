@@ -11,7 +11,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface DetailsViewController : UIViewController
 
-// public property so others can set what movie this is for
+// the movie related with this detail view
 @property (nonatomic, strong) NSDictionary *movie;
 
 @end

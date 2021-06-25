@@ -8,6 +8,7 @@
 #import "DetailsViewController.h"
 #import "UIImageView+AFNetworking.h"
 #import <QuartzCore/QuartzCore.h>
+#import "WebViewController.h"
 
 @interface DetailsViewController ()
 
@@ -16,6 +17,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet UILabel *synopsisLabel;
 @property (weak, nonatomic) IBOutlet UILabel *dateLabel;
+@property (weak, nonatomic) IBOutlet UIButton *trailerButton;
 
 @end
 
@@ -27,11 +29,9 @@
     // Style the poster view
     [self.posterView.layer setBorderColor: [[UIColor whiteColor] CGColor]];
     [self.posterView.layer setBorderWidth:3];
-    // come back
-    [self.posterView.layer setShadowColor: [[UIColor blackColor] CGColor]];
-    [self.posterView.layer setShadowOffset: CGSizeMake(5,5)];
-    [self.posterView.layer setShadowRadius:25];
-    [self.posterView.layer setShadowOpacity:0.9];
+    
+    // Style the trailer button
+    [self.trailerButton.layer setCornerRadius:10];
     
     
     // Set image of this movie
@@ -56,14 +56,16 @@
     [self.synopsisLabel sizeToFit];
 }
 
-/*
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
+    
+    WebViewController *webViewController = [segue destinationViewController];
+    webViewController.movieID = self.movie[@"id"];
+    
 }
-*/
 
 @end
