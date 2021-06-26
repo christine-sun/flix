@@ -2,7 +2,7 @@
 
 **Flix** is a movies app using the [The Movie Database API](http://docs.themoviedb.apiary.io/#).
 
-Time spent: **12 to update** hours spent in total
+Time spent: **22** hours spent in total
 
 ## User Stories
 
@@ -24,8 +24,8 @@ The following **optional** features are implemented:
 - [x] User can view the large movie poster by tapping on a cell.
 - [ ] For the large poster, load the low resolution image first and then switch to the high resolution image when complete.
 - [ ] Customize the selection effect of the cell.
-- [ ] Customize the navigation bar.
-- [ ] Customize the UI.
+- [x] Customize the navigation bar.
+- [x] Customize the UI.
 - [ ] User can view the app on various device sizes and orientations.
 - [x] Run your app on a real device.
 
@@ -42,7 +42,7 @@ Please list two areas of the assignment you'd like to **discuss further with you
 
 Here's a walkthrough of implemented user stories:
 
-https://i.imgur.com/knBGIGk.gif
+![](https://i.imgur.com/IAZhyVC.gif)
 
 ## Notes
 

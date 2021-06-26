@@ -9,6 +9,7 @@
 #import "MovieCell.h"
 #import "UIImageView+AFNetworking.h"
 #import "DetailsViewController.h"
+#import <QuartzCore/QuartzCore.h>
 
 @interface MoviesViewController () <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate>
 
@@ -112,7 +113,8 @@
     cell.titleLabel.text = movie[@"title"];
     cell.synopsisLabel.text = movie[@"overview"];
     cell.posterView.image = nil; // clear out prev image
-    //[cell.posterView setImageWithURL:posterURL];
+    [cell.posterView setImageWithURL:posterURL];
+    [cell.posterView.layer setCornerRadius:10];
     
     // Fade images in as they are downloaded
     NSURLRequest *request = [NSURLRequest requestWithURL:posterURL];
